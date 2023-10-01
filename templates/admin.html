@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Admin Page{% endblock %}
+{% block content %}
+
+<h1>Users</h1>
+<div class="card">
+  <div class="card-body">
+      <div class="row card-body">
+        <div class="card col-12">
+          <div class="card-body">
+            <div class="table-responsive">
+                <table id="user_table" class="table table-sm">
+                    <thead >
+                      <th scope="col">&nbsp;#</th>
+                      <th >Name</th>
+                      <th >Email</th>
+                      <th >State</th>
+                      <th >Enable/Disable</th>
+                      <th >Edit</th>
+                      <th >Delete</th>
+                    </thead>
+                    <tbody class="table-group-divider">
+                      {% for user in list_users %}
+                      <tr>
+                        <td>
+                          <img loading="lazy" class="rounded-circle" alt="avatar1" width="30" height="30" src="https://qph.cf2.quoracdn.net/main-qimg-6d72b77c81c9841bd98fc806d702e859-lq" />
+                        </td>
+                        <td>{{ user.firstName }} {{ user.lastName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{%if user.state === "active" %} <span class="badge rounded-pill bg-success">{{ user.state }}</span> {% else %} <span class="badge rounded-pill bg-warning">{{ user.state }}</span> {% endif %}</td>
+                        <td>{%if user.state !== "active" %}<form action="/users/{{user.id}}/state/" method="POST" style="display: inline;"> <button type="submit" class="btn btn-sm btn-outline-success">Enable&nbsp;<i class="fa fa-check"></i></button></form> {% else %}<form action="/users/{{user.id}}/state/" method="POST" style="display: inline;"> <button type="submit" class="btn btn-sm btn-outline-warning">Disable&nbsp;<i class="fas fa-window-close"></i></button></form> {% endif %}</td>
+                        <td>
+                          <a class="btn btn-sm btn-outline-danger" href="/users/{{user.id}}/edit/">Edit&nbsp;<i class="fa fa-pen"></i></a>
+                        </td>
+                        <td>
+                          <form action="/users/{{user.id}}/delete/" method="POST" style="display: inline;"> <button type="submit" class="btn btn-sm btn-outline-success">Delete&nbsp;<i class="fa fa-trash-alt"></i></button></form>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        </div>
+
+        </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+    $('#link_users').toggleClass('active');
+{% endblock %}

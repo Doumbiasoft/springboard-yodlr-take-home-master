@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Edit User{% endblock %}
+{% block content %}
+<h1>Edit user [{{ user.firstName }} {{ user.lastName }}]</h1>
+
+
+<div class="card">
+  <div class="card-body">
+      <div class="row card-body">
+        <div class="card col-12">
+          <div class="card-body">
+            <form action="/users/{{user.id}}/update/" method="POST">
+              <input type="hidden" name="id" required value="{{ user.id }}">
+              <div class="form-group">
+                <label for="first-name">First Name: </label>
+                <input type="text" id="first-name" class="form-control" name="firstName" required value="{{ user.firstName }}">
+              </div>
+              <div class="form-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" class="form-control" name="lastName" required value="{{ user.lastName }}">
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" class="form-control" name="email" required value="{{ user.email }}">
+              </div>
+              <button class="btn btn-primary">Update</button>
+              <a href="/" class="btn btn-danger">Cancel</a>
+            </form>
+        </div>
+        </div>
+
+        </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+    $('#link_signup').toggleClass('active');
+{% endblock %}
